@@ -33,7 +33,7 @@ Cross compile qt application
 ```
 $ git clone https://github.com/friendlyarm/QtE-Demo
 $ mkdir build && cd build
-$ /usr/local/Trolltech/Qt-5.10.0-rk64one-x86tools/bin/qmake ../QtE-Demo/QtE-Demo.pro
+$ /usr/local/Trolltech/Qt-5.10.0-rk64one-sdk/bin/qmake ../QtE-Demo/QtE-Demo.pro
 $ make
 ```
 
