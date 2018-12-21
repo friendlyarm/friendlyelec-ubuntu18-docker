@@ -20,7 +20,8 @@ RUN apt-get update; \
     libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev \
     libfontconfig1-dev libxss-dev libsrtp0-dev libwebp-dev libjsoncpp-dev libopus-dev libminizip-dev \
     libavutil-dev libavformat-dev libavcodec-dev libevent-dev libcups2-dev libpapi-dev \
-    gcc-aarch64-linux-gnu g++-aarch64-linux-gnu gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+    gcc-aarch64-linux-gnu g++-aarch64-linux-gnu gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf \
+    qemu-user-static debootstrap whiptail
 
 RUN echo "root:fa" | chpasswd
 USER root
