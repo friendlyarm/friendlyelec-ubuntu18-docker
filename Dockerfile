@@ -30,13 +30,11 @@ USER root
 # install friendlyarm-toolchain
 COPY ./toolchain/gcc-x64 /gcc-x64
 RUN echo "> install friendlyarm-toolchain"; \
-	mkdir -p /opt/FriendlyARM/toolchain/; \
-	bsdtar xf /gcc-x64/arm-cortexa9-linux-gnueabihf-4.9.3.tar.xz -C /opt/FriendlyARM/toolchain/; \
-	bsdtar xf /gcc-x64/aarch64-cortexa53-linux-gnu-6.4.tar.xz -C /opt/FriendlyARM/toolchain/; \
+    cat /gcc-x64/toolchain-4.9.3-armhf.tar.gz* | tar xz -C /
+    cat /gcc-x64/toolchain-6.4-aarch64.tar.gz* | tar xz -C /
 	rm -rf /gcc-x64;
 
 # install qt-sdk
-
 COPY ./files/qtsdk-friendlyelec/rk3399 /qtsdk-friendlyelec/rk3399
 RUN if [ -d /qtsdk-friendlyelec/rk3399 ]; then echo "> install QtSDK for rk3399"; \
     cd /qtsdk-friendlyelec/rk3399/; \
