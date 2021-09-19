@@ -7,7 +7,7 @@ RUN set -x; \
     mkdir -p ~/.pip
 COPY ./files/pip.conf ~/.pip/pip.conf
 RUN apt-get update; \
-    apt-get -y install aria2 wget make lsb-release openssh-client vim tree exfat-fuse exfat-utils u-boot-tools mediainfo \
+    apt-get -y install kmod cpio rsync patchelf git sudo time aria2 wget make lsb-release openssh-client vim tree exfat-fuse exfat-utils u-boot-tools mediainfo \
     libasound2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libxcb-xinerama0 libxcb-xinerama0-dev \
     libopenal-dev libalut-dev libpulse-dev libuv1-dev libmicrohttpd-dev libssl-dev bridge-utils ifplugd \
     libbluetooth3-dev libjpeg8 libjpeg8-dev libjpeg-turbo8 libjpeg-turbo8-dev libvpx-dev \
@@ -24,8 +24,7 @@ RUN apt-get update; \
     qemu-user-static debootstrap whiptail bsdtar bc device-tree-compiler \
 	swig python-dev python3-dev liblz4-tool
 
-RUN echo "root:fa" | chpasswd
-USER root
+
 
 # install friendlyarm-toolchain
 COPY ./toolchain/gcc-x64 /gcc-x64
@@ -42,5 +41,12 @@ RUN echo "> install friendlyarm-toolchain"; \
 # 	sed -e 's/exec tar/exec bsdtar/g' ./install.sh -i; \
 # 	./install.sh; \
 # 	rm -rf /qtsdk-friendlyelec; fi
+
+RUN echo "root:fa" | chpasswd
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu
+RUN echo "ubuntu:fa" | chpasswd
+
+USER ubuntu
+WORKDIR /home/ubuntu
 
 RUN echo "all done."
