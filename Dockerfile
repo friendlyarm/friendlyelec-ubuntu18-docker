@@ -6,9 +6,10 @@ COPY ./files/sources-1804.list /etc/apt/sources.list
 RUN set -x; \
     mkdir -p ~/.pip
 COPY ./files/pip.conf ~/.pip/pip.conf
+
 RUN apt-get update; \
-    apt-get -y install kmod cpio rsync patchelf git sudo time aria2 wget make lsb-release openssh-client vim tree exfat-fuse exfat-utils u-boot-tools mediainfo \
-    libasound2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libxcb-xinerama0 libxcb-xinerama0-dev \
+    apt-get -y install git sudo time aria2 wget make lsb-release openssh-client vim tree exfat-fuse exfat-utils u-boot-tools mediainfo \
+    libncurses5-dev zlib1g-dev g++ gawk patch libasound2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libxcb-xinerama0 libxcb-xinerama0-dev \
     libopenal-dev libalut-dev libpulse-dev libuv1-dev libmicrohttpd-dev libssl-dev bridge-utils ifplugd \
     libbluetooth3-dev libjpeg8 libjpeg8-dev libjpeg-turbo8 libjpeg-turbo8-dev libvpx-dev \
     libgtk2.0-dev libnss3 libgconf-2-4 gconf2 gconf2-common libx11-dev libxext-dev libxtst-dev \
@@ -24,7 +25,8 @@ RUN apt-get update; \
     qemu-user-static debootstrap whiptail bsdtar bc device-tree-compiler \
 	swig python-dev python3-dev liblz4-tool
 
-
+# packages for buildroot
+RUN apt-get -y install kmod cpio rsync patchelf
 
 # install friendlyarm-toolchain
 COPY ./toolchain/gcc-x64 /gcc-x64
