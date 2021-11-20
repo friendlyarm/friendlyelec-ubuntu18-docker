@@ -28,6 +28,12 @@ RUN apt-get update; \
 # packages for buildroot
 RUN apt-get -y install kmod cpio rsync patchelf
 
+# misc tools
+RUN apt-get -y install net-tools silversearcher-ag strace
+
+# for sd_fuse
+RUN apt-get -y install parted udev
+
 # install friendlyarm-toolchain
 COPY ./toolchain/gcc-x64 /gcc-x64
 RUN echo "> install friendlyarm-toolchain"; \
@@ -35,20 +41,11 @@ RUN echo "> install friendlyarm-toolchain"; \
     cat /gcc-x64/toolchain-6.4-aarch64.tar.gz* | tar xz -C /; \
 	rm -rf /gcc-x64;
 
-# RUN mkdir /qtsdk-friendlyelec/
-# COPY ./files/qtsdk-friendlyelec/rk3399 /qtsdk-friendlyelec/
-# RUN if [ -d /qtsdk-friendlyelec/rk3399 ]; then echo "> install QtSDK for rk3399"; \
-#     cd /qtsdk-friendlyelec/rk3399/; \
-# 	chmod 755 install.sh; \
-# 	sed -e 's/exec tar/exec bsdtar/g' ./install.sh -i; \
-# 	./install.sh; \
-# 	rm -rf /qtsdk-friendlyelec; fi
-
 RUN echo "root:fa" | chpasswd
 RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu
 RUN echo "ubuntu:fa" | chpasswd
 
-USER ubuntu
-WORKDIR /home/ubuntu
+USER root
+WORKDIR /root
 
 RUN echo "all done."
