@@ -148,7 +148,6 @@ git clone https://github.com/friendlyarm/sd-fuse_rk3399
 cd sd-fuse_rk3399
 ./mk-emmc-image.sh friendlydesktop-arm64
 ```
-* If you get an error saying that the /dev/loopN device does not exist, first create it with the following command, for example to create /dev/loop31, you can use the command: mknod /dev/loop31 b 7 31
 
 Rebuild docker image and container
 ------------
