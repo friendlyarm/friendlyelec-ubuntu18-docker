@@ -68,7 +68,8 @@ docker commit ${CONTAINER_ID} fa-ubuntu18
 Start a new shell session in a running container
 ------------
 ```
-docker exec -it `docker ps -aqf "name=fa-ubuntu18"` bash
+CONTAINER_ID=`docker ps -l | grep fa-ubuntu18 | awk '{print $1}'`
+docker exec -it ${CONTAINER_ID} bash
 ```
 
 Test the Qt sdk installation: Cross compile qt application
