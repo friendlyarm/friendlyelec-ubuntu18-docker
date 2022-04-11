@@ -43,7 +43,7 @@ RUN apt-get -y install kmod cpio rsync patchelf
 RUN apt-get -y install net-tools silversearcher-ag strace
 
 # for sd_fuse
-RUN apt-get -y install parted udev
+RUN apt-get -y install parted udev android-tools-fsutils
 
 # for menuconfig
 RUN apt-get -y install libncurses*
