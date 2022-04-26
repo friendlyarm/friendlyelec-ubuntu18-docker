@@ -56,6 +56,7 @@ RUN echo "> install friendlyarm-toolchain"; \
 	rm -rf /gcc-x64;
 
 RUN echo "root:fa" | chpasswd
+RUN groupadd -g 1000 ubuntu
 RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu
 RUN echo "ubuntu:fa" | chpasswd
 
