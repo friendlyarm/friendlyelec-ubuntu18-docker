@@ -37,7 +37,7 @@ RUN apt-get -y install bash repo git cvs gzip bzip2 unzip tar perl sudo file tim
 RUN apt-get -y install expect expect-dev mtools libusb-1.0-0-dev linaro-image-tools python-linaro-image-tools \
     autoconf autotools-dev libsigsegv2 m4 intltool curl sed binutils libqt4-dev libglib2.0-dev \
     libglade2-dev
-RUN apt-get -y install kmod cpio rsync patchelf
+RUN apt-get -y install kmod cpio rsync patchelf live-build
 
 # misc tools
 RUN apt-get -y install net-tools silversearcher-ag strace
