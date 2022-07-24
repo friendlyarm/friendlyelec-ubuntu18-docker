@@ -39,6 +39,10 @@ RUN apt-get -y install expect expect-dev mtools libusb-1.0-0-dev linaro-image-to
     libglade2-dev
 RUN apt-get -y install kmod cpio rsync patchelf live-build
 
+# musl-dev
+RUN apt-get -y install musl-dev
+RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
+
 # misc tools
 RUN apt-get -y install net-tools silversearcher-ag strace
 
