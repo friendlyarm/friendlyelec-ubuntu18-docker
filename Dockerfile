@@ -1,12 +1,6 @@
 FROM ubuntu:18.04
 MAINTAINER Lawrence-Tang <tangzongsheng@gmail.com>
 
-# cn source
-COPY ./files/sources-1804.list /etc/apt/sources.list
-RUN set -x; \
-    mkdir -p ~/.pip
-COPY ./files/pip.conf ~/.pip/pip.conf
-
 RUN apt-get update
 
 RUN echo 'tzdata tzdata/Areas select Asia' | debconf-set-selections
