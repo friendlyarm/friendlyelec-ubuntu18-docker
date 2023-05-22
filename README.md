@@ -11,7 +11,7 @@ Can be used to compile the following projects:
 * FriendlyWrt
 * Rockchip Linuxsdk (buildroot)
 
-Build docker image with qt-sdk and toolchain added
+Build docker image with toolchain
 ------------
 
 Download the qt-sdk package from the following url:     
@@ -21,10 +21,6 @@ Once you've done that then:
 ```
 git clone --recursive https://github.com/friendlyarm/friendlyelec-ubuntu18-docker.git
 docker build -t "fa-ubuntu18" friendlyelec-ubuntu18-docker
-
-# Optional
-mkdir -p ~/work
-tar xvzf /path/to/qtsdk-friendlyelec-YYYYMMDD.tgz -C ~/work/
 ```
 
 Run
@@ -48,24 +44,31 @@ Root:
    User Name: root
    Password: fa
 ```
-Install the Qt SDK for RK3399 in the Docker container
+Install the Qt SDK for Rockchip in the Docker container
 ------------
+Mount the qt-5.10-rockchip directory which in the netdrive to the container:
 ```
-cd /work/qtsdk-friendlyelec/rk3399/
+docker run --name fa-ubuntu18 --privileged \
+   -it -v /tmp:/tmp -v /dev:/dev -v ~/work:/work \
+   -v /path/to/netdrive/04_SDK\ and\ toolchain/qt-5.10-rockchip:/qt-5.10-rockchip \
+   fa-ubuntu18 bash
+```
+In the container，execute the following commands:
+```
+cd /qt-5.10-rockchip
 chmod 755 install.sh
-sed -e 's/exec tar/exec bsdtar/g' ./install.sh -i
 ./install.sh
 ```
 
 Save docker container state
 ------------
-Open another shell terminal on the host PC and enter the following command:
+Open another shell terminal on the host PC and enter the following commands:
 ```
 CONTAINER_ID=`docker ps -l | grep fa-ubuntu18 | awk '{print $1}'`
 docker commit ${CONTAINER_ID} fa-ubuntu18
 ```
 
-Start a new shell session in a running container
+Start a new shell session
 ------------
 ```
 CONTAINER_ID=`docker ps -l | grep fa-ubuntu18 | awk '{print $1}'`
@@ -79,10 +82,14 @@ git clone https://github.com/friendlyarm/QtE-Demo
 mkdir build && cd build
 /usr/local/Trolltech/Qt-5.10.0-rk64one-sdk/bin/qmake ../QtE-Demo/QtE-Demo.pro
 make
+scp build/QtE-Demo root@BOARDIP:/tmp/
 ```
-
-You can see the qt binary files in the ~/work directory of the host system.    
-Refer to the following guidelines to know how to run Qt application on the development board:  
+Run QtE-Demo on target board:
+```
+. setqt5env
+/tmp/QtE-Demo
+```
+More details:  
 http://wiki.friendlyarm.com/wiki/index.php/How_to_Build_and_Install_Qt_Application_for_FriendlyELEC_Boards
 
 
